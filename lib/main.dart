@@ -9,7 +9,16 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Foods',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.pink,
+        colorScheme: const ColorScheme.light(secondary: Colors.amber),
+        fontFamily: 'Raleway',
+        canvasColor: Color.fromRGBO(255, 254, 229, 1),
+        textTheme: ThemeData.light().textTheme.copyWith(
+              titleMedium: TextStyle(
+                fontSize: 20,
+                fontFamily: 'RobotoCondensed',
+              ),
+            ),
       ),
       home: CategoriesScreen(),
     );
