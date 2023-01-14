@@ -19,6 +19,9 @@ class MyApp extends StatelessWidget {
                 fontFamily: 'RobotoCondensed',
               ),
             ),
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Colors.pink,
+        ),
       ),
       home: CategoriesScreen(),
     );
