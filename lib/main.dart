@@ -24,6 +24,7 @@ class MyApp extends StatelessWidget {
           backgroundColor: Colors.pink,
         ),
       ),
+      initialRoute: '/',
       routes: {
         '/': (context) => CategoriesScreen(),
         '/food-categories': (context) => CategoriesFoodsScreen(),
