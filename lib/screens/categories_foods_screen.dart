@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_foods/models/category.dart';
 
 class CategoriesFoodsScreen extends StatelessWidget {
@@ -10,14 +8,35 @@ class CategoriesFoodsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final category = ModalRoute.of(context)?.settings.arguments as Category;
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(category.title),
-      ),
-      body: Center(
-        child: Text('Receitas por Categoria ${category.id}'),
-      ),
+    final category = ModalRoute.of(context)?.settings.arguments;
+
+    _getCategory() {
+      return Future.delayed(Duration(seconds: 0), () => category);
+    }
+
+    return FutureBuilder(
+      future: _getCategory(),
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+        if (snapshot.hasData) {
+          return Scaffold(
+            appBar: AppBar(
+              title: Text(snapshot.data.title),
+            ),
+            body: Center(
+              child: Text('Receitas por Categoria ${snapshot.data.id}'),
+            ),
+          );
+        } else {
+          return Scaffold(
+            appBar: AppBar(
+              title: Text("Loading"),
+            ),
+            body: Center(
+              child: CircularProgressIndicator(),
+            ),
+          );
+        }
+      },
     );
   }
 }
