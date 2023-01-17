@@ -1,41 +1,28 @@
 import 'package:flutter/material.dart';
+import '../models/category.dart';
+import '../data/dummy_data.dart';
 
 class CategoriesFoodsScreen extends StatelessWidget {
-  const CategoriesFoodsScreen({
-    super.key,
-  });
+  const CategoriesFoodsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final category = ModalRoute.of(context)?.settings.arguments;
+    final category = ModalRoute.of(context)!.settings.arguments as Category;
 
-    _getCategory() {
-      return Future.delayed(Duration(seconds: 0), () => category);
-    }
+    final categoryFoods = dummyFoods.where((food) {
+      return food.categories.contains(category.id);
+    }).toList();
 
-    return FutureBuilder(
-      future: _getCategory(),
-      builder: (BuildContext context, AsyncSnapshot snapshot) {
-        if (snapshot.hasData) {
-          return Scaffold(
-            appBar: AppBar(
-              title: Text(snapshot.data.title),
-            ),
-            body: Center(
-              child: Text('Receitas por Categoria ${snapshot.data.id}'),
-            ),
-          );
-        } else {
-          return Scaffold(
-            appBar: AppBar(
-              title: Text("Loading"),
-            ),
-            body: Center(
-              child: CircularProgressIndicator(),
-            ),
-          );
-        }
-      },
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(category.title),
+      ),
+      body: ListView.builder(
+        itemCount: categoryFoods.length,
+        itemBuilder: (ctx, index) {
+          return Text(categoryFoods[index].title);
+        },
+      ),
     );
   }
 }
