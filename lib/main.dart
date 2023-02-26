@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_foods/data/dummy_data.dart';
+import 'package:flutter_foods/models/food.dart';
 import 'package:flutter_foods/screens/categories_foods_screen.dart';
 import 'package:flutter_foods/screens/food_detail_screen.dart';
 import 'package:flutter_foods/screens/settings_screen.dart';
@@ -7,7 +9,15 @@ import 'package:flutter_foods/utils/app_routes.dart';
 
 void main() => runApp(MyApp());
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+
+  List<Food> _availableFoods = dummyFoods;
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -30,7 +40,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         AppRoutes.HOME: (context) => TabsScreen(),
-        AppRoutes.CATEGORIES_FOODS: (context) => CategoriesFoodsScreen(),
+        AppRoutes.CATEGORIES_FOODS: (context) => CategoriesFoodsScreen(foods: _availableFoods,),
         AppRoutes.FOOD_DETAIL: (context) => FoodDetailScreen(),
         AppRoutes.SETTINGS: (context) => SettingsScreen(),
       },
