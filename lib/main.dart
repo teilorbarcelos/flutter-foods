@@ -16,10 +16,12 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  Settings settings = Settings();
   List<Food> _availableFoods = dummyFoods;
 
   void _filterFoods(Settings settings) {
     setState(() {
+      this.settings = settings;
       _availableFoods = dummyFoods.where((food) {
         final filterGluten = settings.isGlutenFree && !food.isGlutenFree;
         final filterLactose = settings.isLactoseFree && !food.isLactoseFree;
@@ -60,6 +62,7 @@ class _MyAppState extends State<MyApp> {
             ),
         AppRoutes.FOOD_DETAIL: (context) => FoodDetailScreen(),
         AppRoutes.SETTINGS: (context) => SettingsScreen(
+              settings: settings,
               onSettingsChanged: _filterFoods,
             ),
       },

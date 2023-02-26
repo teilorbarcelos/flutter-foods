@@ -5,16 +5,24 @@ import 'package:flutter_foods/components/main_drawer.dart';
 import 'package:flutter_foods/models/settings.dart';
 
 class SettingsScreen extends StatefulWidget {
+  final Settings settings;
   final Function(Settings) onSettingsChanged;
 
-  const SettingsScreen({required this.onSettingsChanged, super.key});
+  const SettingsScreen(
+      {required this.settings, required this.onSettingsChanged, super.key});
 
   @override
   State<SettingsScreen> createState() => _SettingsScreenState();
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
-  var settings = Settings();
+  late Settings settings;
+
+  @override
+  void initState() {
+    super.initState();
+    settings = widget.settings;
+  }
 
   Widget _createSwitch(
     String title,
